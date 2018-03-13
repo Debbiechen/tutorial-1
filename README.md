@@ -37,6 +37,10 @@ BeFoody App
   # cd 到`befoody-app`所在資料夾 (windows)
   $ cd C:\Users\xxxxxxxxxxx\Documents\befoody\befoody-app
 
+  # 初始化專案
+  $ npm install
+  $ bower install
+
   # 啟動即時預覽
   $ ionic serve
   ```
