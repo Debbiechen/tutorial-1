@@ -3,8 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'firebase','login','user'])
-
+var app = angular.module('starter', ['ionic', 'firebase'])
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -51,6 +50,61 @@ angular.module('starter', ['ionic', 'firebase','login','user'])
         params: {
           userId: null
         }
+      })
+      .state('main-tabs', {
+        url: '/main-tabs',
+        abstract: true,
+        views: {
+          'main-nav-view': {
+            templateUrl: 'template/main-tabs.html'
+          }
+        },
+
+      })
+      .state('main-tabs.post-list', {
+        url: '/post-list',
+        views: {
+          'tab-post-list': {
+            templateUrl: 'template/post-list.html',
+            controller: 'PostListCtrl'
+          }
+        }
+      })
+      .state('main-tabs.place-list', {
+        url: '/place-list',
+        views: {
+          'tab-place-list': {
+            templateUrl: 'template/place-list.html',
+            controller: 'PlaceListCtrl'
+          }
+        }
+      })
+      .state('main-tabs.create-post', {
+        url: '/create-post',
+        views: {
+          'tab-create-post': {
+            templateUrl: 'template/create-post.html',
+            controller: 'CreatePostCtrl'
+          }
+        }
+      })
+      .state('main-tabs.coupon-list', {
+        url: '/coupon-list',
+        views: {
+          'tab-coupon-list': {
+            templateUrl: 'template/coupon-list.html',
+            controller: 'CouponListCtrl'
+          }
+        }
+      })
+      .state('main-tabs.user-profile', {
+        url: '/user-profile',
+        views: {
+          'tab-user-profile': {
+            templateUrl: 'template/user-profile.html',
+            controller: 'UserProfileCtrl'
+          }
+        }
       });
 
 
@@ -70,6 +124,9 @@ angular.module('starter', ['ionic', 'firebase','login','user'])
       'http://www.youtube.com/**',
       'http://player.youku.com/**'
     ]);
+
+    //ionic configuration
+    $ionicConfigProvider.tabs.position('bottom');
 
 
   })

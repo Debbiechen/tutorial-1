@@ -6,17 +6,17 @@
     <div class="list">
       <label class="item item-input item-stacked-label">
         <span class="input-label">Nickname</span>
-        <input type="text" placeholder="For example: John">
+        <input type="text" placeholder="For example: John" ng-model="name">
       </label>
       <label class="item item-input item-stacked-label">
         <span class="input-label">Description</span>
-        <input type="text" placeholder="One should eat to live, not live to eat">
+        <input type="text" placeholder="One should eat to live, not live to eat" ng-model="description">
       </label>
     </div>
     <div class="row">
       <div class="col">
         <button class="button button-block button-positive" ng-click="submit()">
-          Submit
+          Submit {{name}}
         </button>
       </div>
     </div>

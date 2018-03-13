@@ -1,5 +1,4 @@
-angular.module('login', ['ionic'])
-  .controller('LoginCtrl', function ($scope, $rootScope, $state, $http, $ionicPopup, $ionicHistory, $firebaseAuth) {
+app.controller('LoginCtrl', function ($scope, $rootScope, $state, $http, $ionicPopup, $ionicHistory, $firebaseAuth) {
 
     $scope.loginFacebook = function () {
       // login with Facebook
@@ -9,6 +8,8 @@ angular.module('login', ['ionic'])
         firebase.database().ref('/users/' + uid).once('value').then(function (snapshot) {
           if (snapshot.val()) {
             // already has profile
+            $state.go('main-tabs.post-list');
+
           }
           else{
             // no profile
