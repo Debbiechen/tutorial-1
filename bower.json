@@ -12,6 +12,7 @@
     "angularfire": "^2.3.0",
     "ionic-social-buttons": "^1.1.1",
     "angular-ui-router": "0.2.13",
-    "angular-elastic": "^2.5.1"
+    "angular-elastic": "^2.5.1",
+    "angular-guid": "^0.1.2"
   }
 }

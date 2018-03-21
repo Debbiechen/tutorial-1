@@ -21,20 +21,20 @@
       </div>
     </div>
     <div class="row padding">
-      <div class="col back-stable text-center-x" style="height: 10rem;">
+      <div class="col back-stable text-center-x" style="height: 15rem;">
         <a class="button button-icon icon ion-plus-circled text-center-y"></a>
       </div>
     </div>
     <div class="row padding">
       <div class="col">
-        <textarea msd-elastic ng-model="post.content" placeholder="請新增說明文字"></textarea>
+        <textarea msd-elastic ng-model="content" placeholder="請新增說明文字"></textarea>
       </div>
     </div>
     <div class="list card">
 
       <div class="item item-icon-left" ng-repeat="item in items track by $index">
         <a class="button button-icon icon" ng-class="{'ion-plus-circled': !canDeleteItem($index), 'ion-minus-circled': canDeleteItem($index)}" ng-disabled="!canDeleteItem($index)" ng-click="deleteItem($index)"></a>
-          <input type="text" placeholder="新增料理名稱" ng-change="onItemNameChanged($index)">
+          <input type="text" placeholder="新增料理名稱" ng-change="onItemNameChanged($index)" ng-model="item.name">
         </a>
       </div>
 
