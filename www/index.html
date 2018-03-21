@@ -32,17 +32,19 @@
 
   <script src="lib/firebase/firebase.js"></script>
   <script src="lib/angularfire/dist/angularfire.min.js"></script>
+  <script src="lib/angular-elastic/elastic.js"></script>
+  
 
-
-  <script>
+  <script> 
+    
     // Initialize Firebase
     var config = {
-      apiKey: "AIzaSyABlSPlYxLFHvkLiroasrwBYqWRQa3H8ZM",
-      authDomain: "befoody-4e0a3.firebaseapp.com",
-      databaseURL: "https://befoody-4e0a3.firebaseio.com",
-      projectId: "befoody-4e0a3",
-      storageBucket: "befoody-4e0a3.appspot.com",
-      messagingSenderId: "520776530433"
+      apiKey: "AIzaSyDJ8Jwbt9q0Ym17DA4UVOFjOmQQi0b4aJE",
+      authDomain: "tutorial1-3c1bf.firebaseapp.com",
+      databaseURL: "https://tutorial1-3c1bf.firebaseio.com",
+      projectId: "tutorial1-3c1bf",
+      storageBucket: "tutorial1-3c1bf.appspot.com",
+      messagingSenderId: "894636022020"
     };
     firebase.initializeApp(config);
 
@@ -52,10 +54,15 @@
   <script src="js/app.js"></script>
   <script src="js/login.js"></script>
   <script src="js/create-user.js"></script>
+  <script src="js/main-tabs.js"></script>
+  <script src="js/post-list.js"></script>
+  <script src="js/place-list.js"></script>
+  <script src="js/create-post.js"></script>
+  <script src="js/coupon-list.js"></script>
+  <script src="js/user-profile.js"></script>
 </head>
 
 <body ng-app="starter">
-
   <ion-nav-view name="main-nav-view">
   </ion-nav-view>
 </body>

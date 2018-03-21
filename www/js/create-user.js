@@ -1,22 +1,22 @@
-angular.module('user', ['ionic'])
-  .controller('CreateUserCtrl', function ($scope, $rootScope, $state, $http, $ionicPopup, $ionicHistory, $firebaseAuth) {
+app.controller('CreateUserCtrl', function ($scope, $rootScope, $state, $http, $ionicPopup, $ionicHistory, $firebaseAuth) {
 
-    $scope.name = null;
-    $scope.description = null;
-
+    
+    $scope.profile = {
+      name: '',
+      description: ''
+    };
 
 
     $scope.submit = function () {
       var userId = $state.params.userId;
-      firebase.database().ref('users/' + userId).set({
-        name: $scope.name,
-        description: $scope.description
-      }).then(function(result){
-        alert('Success !');
-      },function (err){
+      
+      firebase.database().ref('users/' + userId).set($scope.profile).then(function (result) {
+        alert('success');
+        $state.go('main-tabs.post-list');
+      }, function (err) {
         console.error(err);
       });
-      
+
     };
 
   });

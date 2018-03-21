@@ -3,9 +3,8 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'firebase','login','user'])
-
-  .run(function ($ionicPlatform) {
+var app = angular.module('starter', ['ionic', 'firebase','monospaced.elastic'])
+  .run(function ($ionicPlatform, $rootScope, $firebaseAuth, $state) {
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins.Keyboard) {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -21,9 +20,53 @@ angular.module('starter', ['ionic', 'firebase','login','user'])
         StatusBar.styleDefault();
       }
     });
+
+    $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+      console.log(error);
+      if (error === 'AUTH_REQUIRED') {
+        $state.go('login');
+      }
+      else if(error === 'USER_NOT_FOUND'){
+        $state.go('create-user');
+      }
+    });
+
+    $firebaseAuth().$onAuthStateChanged(function (firebaseUser) {
+      if (firebaseUser) {
+        console.log("Signed in as:", firebaseUser.uid);
+      } else {
+        console.log("Signed out");
+        $state.go('login');
+
+      }
+    });
+
   })
   .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider, $sceDelegateProvider) {
 
+
+    var requireLogin = function ($q, $firebaseAuth) {
+      return $q(function (resolve, reject) {
+        $firebaseAuth().$requireSignIn().then(function (currAuth) {
+          firebase.database().ref('/users/' + currAuth.uid).once('value').then(function (snapshot) {
+            if (snapshot.val()) {
+              resolve({
+                auth: currAuth,
+                user: snapshot.val()
+              });
+            } else {
+              reject('USER_NOT_FOUND');
+            }
+
+          }, function (err) {
+            reject(err);
+          });
+        }, function (err) {
+          reject(err);
+        });
+
+      });
+    }
 
 
     // Ionic uses AngularUI Router which uses the concept of states
@@ -38,6 +81,11 @@ angular.module('starter', ['ionic', 'firebase','login','user'])
             templateUrl: 'template/login.html',
             controller: 'LoginCtrl'
           }
+        },
+        resolve: {
+          currentAuth: function ($firebaseAuth) {
+            return $firebaseAuth().$waitForSignIn();
+          }
         }
       })
       .state('create-user', {
@@ -50,6 +98,64 @@ angular.module('starter', ['ionic', 'firebase','login','user'])
         },
         params: {
           userId: null
+        }
+      })
+      .state('main-tabs', {
+        url: '/main-tabs',
+        abstract: true,
+        views: {
+          'main-nav-view': {
+            templateUrl: 'template/main-tabs.html'
+          }
+        },
+        resolve: {
+          me: requireLogin
+        }
+      })
+      .state('main-tabs.post-list', {
+        url: '/post-list',
+        views: {
+          'tab-post-list': {
+            templateUrl: 'template/post-list.html',
+            controller: 'PostListCtrl'
+          }
+        }
+      })
+      .state('main-tabs.place-list', {
+        url: '/place-list',
+        views: {
+          'tab-place-list': {
+            templateUrl: 'template/place-list.html',
+            controller: 'PlaceListCtrl'
+          }
+        }
+      })
+      .state('main-tabs.create-post', {
+        url: '/create-post',
+        views: {
+          'tab-create-post': {
+            templateUrl: 'template/create-post.html',
+            controller: 'CreatePostCtrl'
+          }
+        }
+
+      })
+      .state('main-tabs.coupon-list', {
+        url: '/coupon-list',
+        views: {
+          'tab-coupon-list': {
+            templateUrl: 'template/coupon-list.html',
+            controller: 'CouponListCtrl'
+          }
+        }
+      })
+      .state('main-tabs.user-profile', {
+        url: '/user-profile',
+        views: {
+          'tab-user-profile': {
+            templateUrl: 'template/user-profile.html',
+            controller: 'UserProfileCtrl'
+          }
         }
       });
 
@@ -70,6 +176,9 @@ angular.module('starter', ['ionic', 'firebase','login','user'])
       'http://www.youtube.com/**',
       'http://player.youku.com/**'
     ]);
+
+    //ionic configuration
+    $ionicConfigProvider.tabs.position('bottom');
 
 
   })
