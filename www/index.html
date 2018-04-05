@@ -16,7 +16,7 @@
           .catch(err => console.log('Error', err));
       }
     </script>-->
-
+  
   <link href="css/ionic.app.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 
@@ -24,6 +24,8 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
+  <!-- Google Place API-->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJ8Jwbt9q0Ym17DA4UVOFjOmQQi0b4aJE&libraries=places"></script>
   <!-- ionic/angularjs js -->
   <script src="lib/ionic/js/ionic.bundle.js"></script>
 
@@ -34,6 +36,7 @@
   <script src="lib/angularfire/dist/angularfire.min.js"></script>
   <script src="lib/angular-elastic/elastic.js"></script>
   <script src="lib/angular-guid/guid.js"></script>
+  <script src="lib/ion-google-place/ion-google-place.js"></script>
   
   
 
@@ -54,6 +57,7 @@
 
   <!-- your app's js -->
   <script src="js/app.js"></script>
+  <script src="js/directive/google-place-auto-complete.js"></script>
   <script src="js/login.js"></script>
   <script src="js/create-user.js"></script>
   <script src="js/main-tabs.js"></script>
