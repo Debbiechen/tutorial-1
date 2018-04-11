@@ -3,9 +3,13 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic', 'firebase','monospaced.elastic','ngGuid'])
+var app = angular.module('starter', ['ionic', 'firebase', 'monospaced.elastic', 'ngGuid','ngCordova'])
   .run(function ($ionicPlatform, $rootScope, $firebaseAuth, $state) {
     $ionicPlatform.ready(function () {
+      console.log(cordova);
+      if (window.cordova && window.cordova.InAppBrowser) {
+        window.open = cordova.InAppBrowser.open;
+      }
       if (window.cordova && window.cordova.plugins.Keyboard) {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -16,6 +20,7 @@ var app = angular.module('starter', ['ionic', 'firebase','monospaced.elastic','n
         // a much nicer keyboard experience.
         cordova.plugins.Keyboard.disableScroll(true);
       }
+      
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
@@ -25,8 +30,7 @@ var app = angular.module('starter', ['ionic', 'firebase','monospaced.elastic','n
       console.log(error);
       if (error === 'AUTH_REQUIRED') {
         $state.go('login');
-      }
-      else if(error === 'USER_NOT_FOUND'){
+      } else if (error === 'USER_NOT_FOUND') {
         $state.go('create-user');
       }
     });

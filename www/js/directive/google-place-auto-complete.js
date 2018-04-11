@@ -8,10 +8,10 @@ app.directive('googlePlaceAutoComplete', function () {
       scope.googlePlaceAutoComplete = new google.maps.places.Autocomplete(element[0], options);
 
       scope.googlePlaceAutoComplete.addListener('place_changed', function () {
-        var place = autocomplete.getPlace();
+        var place = scope.googlePlaceAutoComplete.getPlace();
         scope.$apply(function () {
             model.$setViewValue(place);
-            scope.$broadcast('googlePlaceAutoComplete.placeChanged');
+            scope.$emit('googlePlaceAutoComplete.placeChanged',place);
         });
       });
     }
